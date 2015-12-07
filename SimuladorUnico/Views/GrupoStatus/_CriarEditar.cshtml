@@ -1,0 +1,49 @@
+﻿@model SimuladorUnico.Models.GrupoStatus
+
+<div class="form-horizontal">
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.IdGrupoStatus)
+
+    @Html.HiddenFor(model => model.IdUsuario)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NmUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.NmUsuario, new { @class = "form-control", @disabled = "disabled" })
+
+            @Html.ValidationMessageFor(model => model.NmUsuario, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NmGrupoStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.NmGrupoStatus, new { htmlAttributes = new { @class = "form-control" } })
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DvAtivo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.DvAtivo)
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @{
+                var texto = Model.IdGrupoStatus > 0 ? "Salvar" : "Criar";
+            }
+
+            <button class="btn btn-default" onclick="SalvarGrupoStatus()">@texto</button>
+        </div>
+    </div>
+</div>
+
+

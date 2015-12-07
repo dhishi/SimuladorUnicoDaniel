@@ -1,0 +1,860 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SimuladorUnicoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tbl_Cobertura">
+          <Key>
+            <PropertyRef Name="id_cobertura" />
+          </Key>
+          <Property Name="id_cobertura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_cobertura" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_tipo_cobertura" Type="int" Nullable="false" />
+          <Property Name="id_cobertura_ex" Type="int" />
+          <Property Name="id_status" Type="int" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="dt_cadastro" Type="smalldatetime" Nullable="false" />
+          <Property Name="id_ramo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Grupo_Status">
+          <Key>
+            <PropertyRef Name="id_grp_status" />
+          </Key>
+          <Property Name="id_grp_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_grp_status" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="dt_cadastro" Type="smalldatetime" Nullable="false" />
+          <Property Name="dv_ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Produto">
+          <Key>
+            <PropertyRef Name="id_produto" />
+          </Key>
+          <Property Name="id_produto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_produto_ext" Type="int" />
+          <Property Name="nm_produto" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="id_status" Type="int" Nullable="false" />
+          <Property Name="id_ramo" Type="int" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="dt_cadastro" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Produto_Cobertura">
+          <Key>
+            <PropertyRef Name="id_cobertura" />
+            <PropertyRef Name="id_produto" />
+          </Key>
+          <Property Name="id_cobertura" Type="int" Nullable="false" />
+          <Property Name="id_produto" Type="int" Nullable="false" />
+          <Property Name="limite_resseguro" Type="money" />
+          <Property Name="dv_ressegurada" Type="bit" Nullable="false" />
+          <Property Name="limite_cobertura" Type="money" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="dt_cadastro" Type="smalldatetime" Nullable="false" />
+          <Property Name="dt_inicio_vigencia" Type="date" Nullable="false" />
+          <Property Name="dt_fim_vigencia" Type="date" />
+          <Property Name="vl_base" Type="decimal" Precision="18" Scale="6" />
+          <Property Name="id_produto_cobertura_ex" Type="int" />
+        </EntityType>
+        <EntityType Name="Tbl_Ramo">
+          <Key>
+            <PropertyRef Name="id_ramo" />
+          </Key>
+          <Property Name="id_ramo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nr_ramo" Type="int" Nullable="false" />
+          <Property Name="nm_ramo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="id_ramo_ext" Type="int" />
+          <Property Name="id_status" Type="int" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="dt_cadastro" Type="smalldatetime" Nullable="false" />
+          <Property Name="cod_susep" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Status">
+          <Key>
+            <PropertyRef Name="id_status" />
+          </Key>
+          <Property Name="id_status" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_status" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_grp_status" Type="int" Nullable="false" />
+          <Property Name="dv_ativo" Type="bit" Nullable="false" />
+          <Property Name="id_status_ex" Type="int" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="dt_cadastro" Type="smalldatetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Tipo_Cobertura">
+          <Key>
+            <PropertyRef Name="id_tipo_cobertura" />
+          </Key>
+          <Property Name="id_tipo_cobertura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_tipo_cobertura" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_usuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="id_usuario_ex" Type="int" Nullable="false" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Ramo">
+          <End Role="Tbl_Ramo" Type="Self.Tbl_Ramo" Multiplicity="1" />
+          <End Role="Tbl_Cobertura" Type="Self.Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Ramo">
+              <PropertyRef Name="id_ramo" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_ramo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Status">
+          <End Role="Tbl_Status" Type="Self.Tbl_Status" Multiplicity="1" />
+          <End Role="Tbl_Cobertura" Type="Self.Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Tipo_Cobertura">
+          <End Role="Tbl_Tipo_Cobertura" Type="Self.Tbl_Tipo_Cobertura" Multiplicity="1" />
+          <End Role="Tbl_Cobertura" Type="Self.Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Tipo_Cobertura">
+              <PropertyRef Name="id_tipo_cobertura" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_tipo_cobertura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Usuario">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Cobertura" Type="Self.Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Grupo_Status_Tbl_Usuario">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Grupo_Status" Type="Self.Tbl_Grupo_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Grupo_Status">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Cobertura_Tbl_Cobertura">
+          <End Role="Tbl_Cobertura" Type="Self.Tbl_Cobertura" Multiplicity="1" />
+          <End Role="Tbl_Produto_Cobertura" Type="Self.Tbl_Produto_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Cobertura">
+              <PropertyRef Name="id_cobertura" />
+            </Principal>
+            <Dependent Role="Tbl_Produto_Cobertura">
+              <PropertyRef Name="id_cobertura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Cobertura_Tbl_Produto">
+          <End Role="Tbl_Produto" Type="Self.Tbl_Produto" Multiplicity="1" />
+          <End Role="Tbl_Produto_Cobertura" Type="Self.Tbl_Produto_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Produto">
+              <PropertyRef Name="id_produto" />
+            </Principal>
+            <Dependent Role="Tbl_Produto_Cobertura">
+              <PropertyRef Name="id_produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Cobertura_Tbl_Usuario">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Produto_Cobertura" Type="Self.Tbl_Produto_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Produto_Cobertura">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Tbl_Ramo">
+          <End Role="Tbl_Ramo" Type="Self.Tbl_Ramo" Multiplicity="1" />
+          <End Role="Tbl_Produto" Type="Self.Tbl_Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Ramo">
+              <PropertyRef Name="id_ramo" />
+            </Principal>
+            <Dependent Role="Tbl_Produto">
+              <PropertyRef Name="id_ramo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Tbl_Status">
+          <End Role="Tbl_Status" Type="Self.Tbl_Status" Multiplicity="1" />
+          <End Role="Tbl_Produto" Type="Self.Tbl_Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Tbl_Produto">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Tbl_Usuario">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Produto" Type="Self.Tbl_Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Produto">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Ramo_Tbl_Status">
+          <End Role="Tbl_Status" Type="Self.Tbl_Status" Multiplicity="1" />
+          <End Role="Tbl_Ramo" Type="Self.Tbl_Ramo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Tbl_Ramo">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Ramo_Tbl_Usuario">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Ramo" Type="Self.Tbl_Ramo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Ramo">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Status_Tbl_Grupo_Status">
+          <End Role="Tbl_Grupo_Status" Type="Self.Tbl_Grupo_Status" Multiplicity="1" />
+          <End Role="Tbl_Status" Type="Self.Tbl_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Grupo_Status">
+              <PropertyRef Name="id_grp_status" />
+            </Principal>
+            <Dependent Role="Tbl_Status">
+              <PropertyRef Name="id_grp_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Status_Tbl_Usuario">
+          <End Role="Tbl_Usuario" Type="Self.Tbl_Usuario" Multiplicity="1" />
+          <End Role="Tbl_Status" Type="Self.Tbl_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Status">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SimuladorUnicoModelStoreContainer">
+          <EntitySet Name="Tbl_Cobertura" EntityType="Self.Tbl_Cobertura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Grupo_Status" EntityType="Self.Tbl_Grupo_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Produto" EntityType="Self.Tbl_Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Produto_Cobertura" EntityType="Self.Tbl_Produto_Cobertura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Ramo" EntityType="Self.Tbl_Ramo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Status" EntityType="Self.Tbl_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Tipo_Cobertura" EntityType="Self.Tbl_Tipo_Cobertura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Usuario" EntityType="Self.Tbl_Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Ramo" Association="Self.FK_Tbl_Cobertura_Tbl_Ramo">
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Status" Association="Self.FK_Tbl_Cobertura_Tbl_Status">
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Tipo_Cobertura" Association="Self.FK_Tbl_Cobertura_Tbl_Tipo_Cobertura">
+            <End Role="Tbl_Tipo_Cobertura" EntitySet="Tbl_Tipo_Cobertura" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Usuario" Association="Self.FK_Tbl_Cobertura_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Grupo_Status_Tbl_Usuario" Association="Self.FK_Tbl_Grupo_Status_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Grupo_Status" EntitySet="Tbl_Grupo_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Cobertura_Tbl_Cobertura" Association="Self.FK_Tbl_Produto_Cobertura_Tbl_Cobertura">
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+            <End Role="Tbl_Produto_Cobertura" EntitySet="Tbl_Produto_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Cobertura_Tbl_Produto" Association="Self.FK_Tbl_Produto_Cobertura_Tbl_Produto">
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+            <End Role="Tbl_Produto_Cobertura" EntitySet="Tbl_Produto_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Cobertura_Tbl_Usuario" Association="Self.FK_Tbl_Produto_Cobertura_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Produto_Cobertura" EntitySet="Tbl_Produto_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Tbl_Ramo" Association="Self.FK_Tbl_Produto_Tbl_Ramo">
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Tbl_Status" Association="Self.FK_Tbl_Produto_Tbl_Status">
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Tbl_Usuario" Association="Self.FK_Tbl_Produto_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Ramo_Tbl_Status" Association="Self.FK_Tbl_Ramo_Tbl_Status">
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Ramo_Tbl_Usuario" Association="Self.FK_Tbl_Ramo_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Status_Tbl_Grupo_Status" Association="Self.FK_Tbl_Status_Tbl_Grupo_Status">
+            <End Role="Tbl_Grupo_Status" EntitySet="Tbl_Grupo_Status" />
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Status_Tbl_Usuario" Association="Self.FK_Tbl_Status_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SimuladorUnicoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="SimuladorUnicoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tbl_Cobertura" EntityType="SimuladorUnicoModel.Tbl_Cobertura" />
+          <EntitySet Name="Tbl_Grupo_Status" EntityType="SimuladorUnicoModel.Tbl_Grupo_Status" />
+          <EntitySet Name="Tbl_Produto" EntityType="SimuladorUnicoModel.Tbl_Produto" />
+          <EntitySet Name="Tbl_Produto_Cobertura" EntityType="SimuladorUnicoModel.Tbl_Produto_Cobertura" />
+          <EntitySet Name="Tbl_Ramo" EntityType="SimuladorUnicoModel.Tbl_Ramo" />
+          <EntitySet Name="Tbl_Status" EntityType="SimuladorUnicoModel.Tbl_Status" />
+          <EntitySet Name="Tbl_Tipo_Cobertura" EntityType="SimuladorUnicoModel.Tbl_Tipo_Cobertura" />
+          <EntitySet Name="Tbl_Usuario" EntityType="SimuladorUnicoModel.Tbl_Usuario" />
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Ramo" Association="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Ramo">
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Status" Association="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Status">
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Tipo_Cobertura" Association="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Tipo_Cobertura">
+            <End Role="Tbl_Tipo_Cobertura" EntitySet="Tbl_Tipo_Cobertura" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Cobertura_Tbl_Usuario" Association="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Cobertura_Tbl_Cobertura" Association="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Cobertura">
+            <End Role="Tbl_Cobertura" EntitySet="Tbl_Cobertura" />
+            <End Role="Tbl_Produto_Cobertura" EntitySet="Tbl_Produto_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Grupo_Status_Tbl_Usuario" Association="SimuladorUnicoModel.FK_Tbl_Grupo_Status_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Grupo_Status" EntitySet="Tbl_Grupo_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Status_Tbl_Grupo_Status" Association="SimuladorUnicoModel.FK_Tbl_Status_Tbl_Grupo_Status">
+            <End Role="Tbl_Grupo_Status" EntitySet="Tbl_Grupo_Status" />
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Cobertura_Tbl_Produto" Association="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Produto">
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+            <End Role="Tbl_Produto_Cobertura" EntitySet="Tbl_Produto_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Tbl_Ramo" Association="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Ramo">
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Tbl_Status" Association="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Status">
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Tbl_Usuario" Association="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Produto" EntitySet="Tbl_Produto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Produto_Cobertura_Tbl_Usuario" Association="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Produto_Cobertura" EntitySet="Tbl_Produto_Cobertura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Ramo_Tbl_Status" Association="SimuladorUnicoModel.FK_Tbl_Ramo_Tbl_Status">
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Ramo_Tbl_Usuario" Association="SimuladorUnicoModel.FK_Tbl_Ramo_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Ramo" EntitySet="Tbl_Ramo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Status_Tbl_Usuario" Association="SimuladorUnicoModel.FK_Tbl_Status_Tbl_Usuario">
+            <End Role="Tbl_Usuario" EntitySet="Tbl_Usuario" />
+            <End Role="Tbl_Status" EntitySet="Tbl_Status" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Tbl_Cobertura">
+          <Key>
+            <PropertyRef Name="id_cobertura" />
+          </Key>
+          <Property Name="id_cobertura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_cobertura" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_tipo_cobertura" Type="Int32" Nullable="false" />
+          <Property Name="id_cobertura_ex" Type="Int32" />
+          <Property Name="id_status" Type="Int32" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="dt_cadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="id_ramo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tbl_Ramo" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Ramo" FromRole="Tbl_Cobertura" ToRole="Tbl_Ramo" />
+          <NavigationProperty Name="Tbl_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Status" FromRole="Tbl_Cobertura" ToRole="Tbl_Status" />
+          <NavigationProperty Name="Tbl_Tipo_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Tipo_Cobertura" FromRole="Tbl_Cobertura" ToRole="Tbl_Tipo_Cobertura" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Usuario" FromRole="Tbl_Cobertura" ToRole="Tbl_Usuario" />
+          <NavigationProperty Name="Tbl_Produto_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Cobertura" FromRole="Tbl_Cobertura" ToRole="Tbl_Produto_Cobertura" />
+        </EntityType>
+        <EntityType Name="Tbl_Grupo_Status">
+          <Key>
+            <PropertyRef Name="id_grp_status" />
+          </Key>
+          <Property Name="id_grp_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_grp_status" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="dt_cadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dv_ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="SimuladorUnicoModel.FK_Tbl_Grupo_Status_Tbl_Usuario" FromRole="Tbl_Grupo_Status" ToRole="Tbl_Usuario" />
+          <NavigationProperty Name="Tbl_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Status_Tbl_Grupo_Status" FromRole="Tbl_Grupo_Status" ToRole="Tbl_Status" />
+        </EntityType>
+        <EntityType Name="Tbl_Produto">
+          <Key>
+            <PropertyRef Name="id_produto" />
+          </Key>
+          <Property Name="id_produto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_produto_ext" Type="Int32" />
+          <Property Name="nm_produto" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="id_status" Type="Int32" Nullable="false" />
+          <Property Name="id_ramo" Type="Int32" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="dt_cadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Tbl_Produto_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Produto" FromRole="Tbl_Produto" ToRole="Tbl_Produto_Cobertura" />
+          <NavigationProperty Name="Tbl_Ramo" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Ramo" FromRole="Tbl_Produto" ToRole="Tbl_Ramo" />
+          <NavigationProperty Name="Tbl_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Status" FromRole="Tbl_Produto" ToRole="Tbl_Status" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Usuario" FromRole="Tbl_Produto" ToRole="Tbl_Usuario" />
+        </EntityType>
+        <EntityType Name="Tbl_Produto_Cobertura">
+          <Key>
+            <PropertyRef Name="id_cobertura" />
+            <PropertyRef Name="id_produto" />
+          </Key>
+          <Property Name="id_cobertura" Type="Int32" Nullable="false" />
+          <Property Name="id_produto" Type="Int32" Nullable="false" />
+          <Property Name="limite_resseguro" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="dv_ressegurada" Type="Boolean" Nullable="false" />
+          <Property Name="limite_cobertura" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="dt_cadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dt_inicio_vigencia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="dt_fim_vigencia" Type="DateTime" Precision="0" />
+          <Property Name="vl_base" Type="Decimal" Precision="18" Scale="6" />
+          <Property Name="id_produto_cobertura_ex" Type="Int32" />
+          <NavigationProperty Name="Tbl_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Cobertura" FromRole="Tbl_Produto_Cobertura" ToRole="Tbl_Cobertura" />
+          <NavigationProperty Name="Tbl_Produto" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Produto" FromRole="Tbl_Produto_Cobertura" ToRole="Tbl_Produto" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Usuario" FromRole="Tbl_Produto_Cobertura" ToRole="Tbl_Usuario" />
+        </EntityType>
+        <EntityType Name="Tbl_Ramo">
+          <Key>
+            <PropertyRef Name="id_ramo" />
+          </Key>
+          <Property Name="id_ramo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nr_ramo" Type="Int32" Nullable="false" />
+          <Property Name="nm_ramo" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="id_ramo_ext" Type="Int32" />
+          <Property Name="id_status" Type="Int32" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="dt_cadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="cod_susep" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Ramo" FromRole="Tbl_Ramo" ToRole="Tbl_Cobertura" />
+          <NavigationProperty Name="Tbl_Produto" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Ramo" FromRole="Tbl_Ramo" ToRole="Tbl_Produto" />
+          <NavigationProperty Name="Tbl_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Ramo_Tbl_Status" FromRole="Tbl_Ramo" ToRole="Tbl_Status" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="SimuladorUnicoModel.FK_Tbl_Ramo_Tbl_Usuario" FromRole="Tbl_Ramo" ToRole="Tbl_Usuario" />
+        </EntityType>
+        <EntityType Name="Tbl_Status">
+          <Key>
+            <PropertyRef Name="id_status" />
+          </Key>
+          <Property Name="id_status" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_status" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_grp_status" Type="Int32" Nullable="false" />
+          <Property Name="dv_ativo" Type="Boolean" Nullable="false" />
+          <Property Name="id_status_ex" Type="Int32" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="dt_cadastro" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Tbl_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Status" FromRole="Tbl_Status" ToRole="Tbl_Cobertura" />
+          <NavigationProperty Name="Tbl_Grupo_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Status_Tbl_Grupo_Status" FromRole="Tbl_Status" ToRole="Tbl_Grupo_Status" />
+          <NavigationProperty Name="Tbl_Produto" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Status" FromRole="Tbl_Status" ToRole="Tbl_Produto" />
+          <NavigationProperty Name="Tbl_Ramo" Relationship="SimuladorUnicoModel.FK_Tbl_Ramo_Tbl_Status" FromRole="Tbl_Status" ToRole="Tbl_Ramo" />
+          <NavigationProperty Name="Tbl_Usuario" Relationship="SimuladorUnicoModel.FK_Tbl_Status_Tbl_Usuario" FromRole="Tbl_Status" ToRole="Tbl_Usuario" />
+        </EntityType>
+        <EntityType Name="Tbl_Tipo_Cobertura">
+          <Key>
+            <PropertyRef Name="id_tipo_cobertura" />
+          </Key>
+          <Property Name="id_tipo_cobertura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_tipo_cobertura" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Tipo_Cobertura" FromRole="Tbl_Tipo_Cobertura" ToRole="Tbl_Cobertura" />
+        </EntityType>
+        <EntityType Name="Tbl_Usuario">
+          <Key>
+            <PropertyRef Name="id_usuario" />
+          </Key>
+          <Property Name="id_usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="id_usuario_ex" Type="Int32" Nullable="false" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="senha" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tbl_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Cobertura_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Cobertura" />
+          <NavigationProperty Name="Tbl_Grupo_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Grupo_Status_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Grupo_Status" />
+          <NavigationProperty Name="Tbl_Produto" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Produto" />
+          <NavigationProperty Name="Tbl_Produto_Cobertura" Relationship="SimuladorUnicoModel.FK_Tbl_Produto_Cobertura_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Produto_Cobertura" />
+          <NavigationProperty Name="Tbl_Ramo" Relationship="SimuladorUnicoModel.FK_Tbl_Ramo_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Ramo" />
+          <NavigationProperty Name="Tbl_Status" Relationship="SimuladorUnicoModel.FK_Tbl_Status_Tbl_Usuario" FromRole="Tbl_Usuario" ToRole="Tbl_Status" />
+        </EntityType>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Ramo">
+          <End Type="SimuladorUnicoModel.Tbl_Ramo" Role="Tbl_Ramo" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Cobertura" Role="Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Ramo">
+              <PropertyRef Name="id_ramo" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_ramo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Status">
+          <End Type="SimuladorUnicoModel.Tbl_Status" Role="Tbl_Status" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Cobertura" Role="Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Tipo_Cobertura">
+          <End Type="SimuladorUnicoModel.Tbl_Tipo_Cobertura" Role="Tbl_Tipo_Cobertura" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Cobertura" Role="Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Tipo_Cobertura">
+              <PropertyRef Name="id_tipo_cobertura" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_tipo_cobertura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Cobertura_Tbl_Usuario">
+          <End Type="SimuladorUnicoModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Cobertura" Role="Tbl_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Cobertura">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Cobertura_Tbl_Cobertura">
+          <End Type="SimuladorUnicoModel.Tbl_Cobertura" Role="Tbl_Cobertura" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Produto_Cobertura" Role="Tbl_Produto_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Cobertura">
+              <PropertyRef Name="id_cobertura" />
+            </Principal>
+            <Dependent Role="Tbl_Produto_Cobertura">
+              <PropertyRef Name="id_cobertura" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Grupo_Status_Tbl_Usuario">
+          <End Type="SimuladorUnicoModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Grupo_Status" Role="Tbl_Grupo_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Grupo_Status">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Status_Tbl_Grupo_Status">
+          <End Type="SimuladorUnicoModel.Tbl_Grupo_Status" Role="Tbl_Grupo_Status" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Status" Role="Tbl_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Grupo_Status">
+              <PropertyRef Name="id_grp_status" />
+            </Principal>
+            <Dependent Role="Tbl_Status">
+              <PropertyRef Name="id_grp_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Cobertura_Tbl_Produto">
+          <End Type="SimuladorUnicoModel.Tbl_Produto" Role="Tbl_Produto" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Produto_Cobertura" Role="Tbl_Produto_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Produto">
+              <PropertyRef Name="id_produto" />
+            </Principal>
+            <Dependent Role="Tbl_Produto_Cobertura">
+              <PropertyRef Name="id_produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Tbl_Ramo">
+          <End Type="SimuladorUnicoModel.Tbl_Ramo" Role="Tbl_Ramo" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Produto" Role="Tbl_Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Ramo">
+              <PropertyRef Name="id_ramo" />
+            </Principal>
+            <Dependent Role="Tbl_Produto">
+              <PropertyRef Name="id_ramo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Tbl_Status">
+          <End Type="SimuladorUnicoModel.Tbl_Status" Role="Tbl_Status" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Produto" Role="Tbl_Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Tbl_Produto">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Tbl_Usuario">
+          <End Type="SimuladorUnicoModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Produto" Role="Tbl_Produto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Produto">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Produto_Cobertura_Tbl_Usuario">
+          <End Type="SimuladorUnicoModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Produto_Cobertura" Role="Tbl_Produto_Cobertura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Produto_Cobertura">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Ramo_Tbl_Status">
+          <End Type="SimuladorUnicoModel.Tbl_Status" Role="Tbl_Status" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Ramo" Role="Tbl_Ramo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Status">
+              <PropertyRef Name="id_status" />
+            </Principal>
+            <Dependent Role="Tbl_Ramo">
+              <PropertyRef Name="id_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Ramo_Tbl_Usuario">
+          <End Type="SimuladorUnicoModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Ramo" Role="Tbl_Ramo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Ramo">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Status_Tbl_Usuario">
+          <End Type="SimuladorUnicoModel.Tbl_Usuario" Role="Tbl_Usuario" Multiplicity="1" />
+          <End Type="SimuladorUnicoModel.Tbl_Status" Role="Tbl_Status" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Usuario">
+              <PropertyRef Name="id_usuario" />
+            </Principal>
+            <Dependent Role="Tbl_Status">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SimuladorUnicoModelStoreContainer" CdmEntityContainer="SimuladorUnicoEntities">
+          <EntitySetMapping Name="Tbl_Cobertura">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Cobertura">
+              <MappingFragment StoreEntitySet="Tbl_Cobertura">
+                <ScalarProperty Name="id_ramo" ColumnName="id_ramo" />
+                <ScalarProperty Name="dt_cadastro" ColumnName="dt_cadastro" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_status" ColumnName="id_status" />
+                <ScalarProperty Name="id_cobertura_ex" ColumnName="id_cobertura_ex" />
+                <ScalarProperty Name="id_tipo_cobertura" ColumnName="id_tipo_cobertura" />
+                <ScalarProperty Name="nm_cobertura" ColumnName="nm_cobertura" />
+                <ScalarProperty Name="id_cobertura" ColumnName="id_cobertura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Grupo_Status">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Grupo_Status">
+              <MappingFragment StoreEntitySet="Tbl_Grupo_Status">
+                <ScalarProperty Name="dv_ativo" ColumnName="dv_ativo" />
+                <ScalarProperty Name="dt_cadastro" ColumnName="dt_cadastro" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="nm_grp_status" ColumnName="nm_grp_status" />
+                <ScalarProperty Name="id_grp_status" ColumnName="id_grp_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Produto">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Produto">
+              <MappingFragment StoreEntitySet="Tbl_Produto">
+                <ScalarProperty Name="dt_cadastro" ColumnName="dt_cadastro" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_ramo" ColumnName="id_ramo" />
+                <ScalarProperty Name="id_status" ColumnName="id_status" />
+                <ScalarProperty Name="nm_produto" ColumnName="nm_produto" />
+                <ScalarProperty Name="id_produto_ext" ColumnName="id_produto_ext" />
+                <ScalarProperty Name="id_produto" ColumnName="id_produto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Produto_Cobertura">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Produto_Cobertura">
+              <MappingFragment StoreEntitySet="Tbl_Produto_Cobertura">
+                <ScalarProperty Name="id_produto_cobertura_ex" ColumnName="id_produto_cobertura_ex" />
+                <ScalarProperty Name="vl_base" ColumnName="vl_base" />
+                <ScalarProperty Name="dt_fim_vigencia" ColumnName="dt_fim_vigencia" />
+                <ScalarProperty Name="dt_inicio_vigencia" ColumnName="dt_inicio_vigencia" />
+                <ScalarProperty Name="dt_cadastro" ColumnName="dt_cadastro" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="limite_cobertura" ColumnName="limite_cobertura" />
+                <ScalarProperty Name="dv_ressegurada" ColumnName="dv_ressegurada" />
+                <ScalarProperty Name="limite_resseguro" ColumnName="limite_resseguro" />
+                <ScalarProperty Name="id_produto" ColumnName="id_produto" />
+                <ScalarProperty Name="id_cobertura" ColumnName="id_cobertura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Ramo">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Ramo">
+              <MappingFragment StoreEntitySet="Tbl_Ramo">
+                <ScalarProperty Name="cod_susep" ColumnName="cod_susep" />
+                <ScalarProperty Name="dt_cadastro" ColumnName="dt_cadastro" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_status" ColumnName="id_status" />
+                <ScalarProperty Name="id_ramo_ext" ColumnName="id_ramo_ext" />
+                <ScalarProperty Name="nm_ramo" ColumnName="nm_ramo" />
+                <ScalarProperty Name="nr_ramo" ColumnName="nr_ramo" />
+                <ScalarProperty Name="id_ramo" ColumnName="id_ramo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Status">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Status">
+              <MappingFragment StoreEntitySet="Tbl_Status">
+                <ScalarProperty Name="dt_cadastro" ColumnName="dt_cadastro" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_status_ex" ColumnName="id_status_ex" />
+                <ScalarProperty Name="dv_ativo" ColumnName="dv_ativo" />
+                <ScalarProperty Name="id_grp_status" ColumnName="id_grp_status" />
+                <ScalarProperty Name="nm_status" ColumnName="nm_status" />
+                <ScalarProperty Name="id_status" ColumnName="id_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Tipo_Cobertura">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Tipo_Cobertura">
+              <MappingFragment StoreEntitySet="Tbl_Tipo_Cobertura">
+                <ScalarProperty Name="nm_tipo_cobertura" ColumnName="nm_tipo_cobertura" />
+                <ScalarProperty Name="id_tipo_cobertura" ColumnName="id_tipo_cobertura" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Usuario">
+            <EntityTypeMapping TypeName="SimuladorUnicoModel.Tbl_Usuario">
+              <MappingFragment StoreEntitySet="Tbl_Usuario">
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="id_usuario_ex" ColumnName="id_usuario_ex" />
+                <ScalarProperty Name="nm_usuario" ColumnName="nm_usuario" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,92 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.pointer {
+    cursor : pointer;
+}
+
+.jumbotron {
+    width : 80%;
+    min-height : 600px;
+    margin-left : auto;
+    margin-right: auto;
+}
+
+.fonte-texto-medio {
+    font-size : 16px;
+    font-family : 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.link {
+    text-decoration : underline;
+}
+
+
+.div-background {
+            position: fixed;
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+            background-color: black;
+            filter: alpha(opacity=50);
+            opacity: 0.5;
+            z-index: 20000;
+            
+           
+        }
+
+       #detalhe-div {
+            width: 1000px;
+            top: 10%;
+            position: absolute;
+            z-index: 25000;
+            filter: alpha(opacity=100);
+            opacity: 1.0;
+            left: 50%;
+            margin-left : -500px
+           
+        }
+
+        #detalhe-div-load {
+            width: 150px;
+            height: 150px;
+            z-index: 25000;
+            text-align: center;
+            color: #202020;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -150px;
+            margin-top: -100px;
+        }
+
+        .btn-adicionar {
+            margin-top : 10px;
+            margin-left : 10px;
+        }

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<SimuladorUnico.Models.Status>
+
+<script>
+
+    $(function () {
+        $('#divAdicionarStatus').hide();
+    });
+
+</script>
+
+<p>
+
+    <button class="btn btn-primary btn-adicionar" onclick="AdicionarStatus()">Adcionar Status</button>
+    <div class="row" style="display : none" id="divAdicionarStatus">
+
+    </div>
+</p>
+
+
+
+<table class="table">
+    @if (Model.Count() > 0)
+    {
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.oGrupoStatus.NmGrupoStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NmStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NmUsuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DtCadastro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdStatusEx)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DvAtivo)
+        </th>
+        <th></th>
+    </tr>
+
+    foreach (var item in Model)
+    {
+    <tr>
+
+        <th>
+            @Html.DisplayFor(model => item.oGrupoStatus.NmGrupoStatus)
+        </th>
+        <th>
+            @Html.DisplayFor(model => item.NmStatus)
+        </th>
+        <th>
+            @Html.DisplayFor(model => item.NmUsuario)
+        </th>
+        <th>
+            @Html.DisplayFor(model => item.DtCadastro)
+        </th>
+        <th>
+            @Html.DisplayFor(model => item.IdStatusEx)
+        </th>
+        <th>
+            @Html.DisplayFor(model => item.DvAtivo)
+        </th>
+        <td>
+            <span class="glyphicon glyphicon-edit pointer" title="Editar Grupo Status" onclick="EditarGrupoStatus(@item.IdStatus)"></span> |
+            <span class="glyphicon glyphicon-remove pointer" title="Editar Grupo Status" onclick="RemoverGrupoStatus(@item.IdStatus)"></span>
+        </td>
+    </tr>
+    }
+    }
+    else
+    {
+    <tr><td><i>Nenhum grupo de status foi adicionado.</i></td></tr>
+    }
+</table>

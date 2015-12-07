@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimuladorUnico", "SimuladorUnico\SimuladorUnico.csproj", "{E1ACD86E-B473-4113-8F8F-DB4C059A2C30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{8F0EC6BA-1011-44AD-A0CA-84339C39E52F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E1ACD86E-B473-4113-8F8F-DB4C059A2C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1ACD86E-B473-4113-8F8F-DB4C059A2C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1ACD86E-B473-4113-8F8F-DB4C059A2C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1ACD86E-B473-4113-8F8F-DB4C059A2C30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F0EC6BA-1011-44AD-A0CA-84339C39E52F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F0EC6BA-1011-44AD-A0CA-84339C39E52F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F0EC6BA-1011-44AD-A0CA-84339C39E52F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F0EC6BA-1011-44AD-A0CA-84339C39E52F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

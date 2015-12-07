@@ -1,0 +1,67 @@
+﻿@model SimuladorUnico.Models.Status
+
+
+    
+    <div class="form-horizontal">
+        <h4>Status</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.IdUsuario)
+        @Html.HiddenFor(model => model.IdStatus)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NmUsuario, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.NmUsuario, new { @class = "form-control", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.NmUsuario, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.oGrupoStatus.NmGrupoStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.IdGrupoStatus, Model.lstGrupoStatusItens, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IdStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.NmStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NmStatus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NmStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IdStatusEx, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.IdStatusEx, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.IdStatusEx, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DvAtivo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.DvAtivo)
+                    @Html.ValidationMessageFor(model => model.DvAtivo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @{
+                    var texto = Model.IdStatus > 0 ? "Salvar" : "Criar";
+                }
+
+                <button class="btn btn-default" onclick="SalvarStatus()">@texto</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
